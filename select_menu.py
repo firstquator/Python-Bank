@@ -10,6 +10,3 @@ def select_menu():
     btn = int(input("입력 : "))
 
     return btn;
-
-b = select_menu()
-print(b)

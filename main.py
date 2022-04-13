@@ -14,7 +14,7 @@ if __name__ == "__main__":
     bank = Bank()
 
     btn = input("입력: ")
-    while not btn.isdigit() or (int(btn) > 0 and int(btn) <= 6) :
+    while not btn.isdigit() or (int(btn) < 0 or int(btn) > 6) :
       print("1 ~ 6 사이 숫자를 입력해주세요.")
       btn = input("입력: ")
     
@@ -25,6 +25,6 @@ if __name__ == "__main__":
     elif(btn == '2'):
       bank.deposit()
     elif(btn == '3'):
-      bank.withdraw
+      bank.withdraw()
     elif(btn == '4'):
       bank.inquiry()

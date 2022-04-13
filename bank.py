@@ -1,17 +1,25 @@
-from math import floor
 from re import search
 
 def display_user_info(user: dict, sep: str):
-  for key, value in user:
-    print(f'{key} : {value} {sep}')
+  for key in user:
+    print(f'{key} : {user[key]} ', end=sep)
+
+def check_duplication(accounts: list, account: str):
+  if account in accounts:
+    return True
+  else:
+    return False
 
 class Bank():
+  users = []
+  accounts = []
   def __init__(self):
-    self.users = []
+    self.users = Bank.users
+    self.accounts = Bank.accounts
 
   # ================= 계좌생성 method =================
   def create_account(self):
-    print("======계좌개설======\n")
+    print("======계좌개설======")
     account = input("계좌번호 : ")
     name = input("이름 : ")
     money = input("예금 : ")
@@ -19,6 +27,10 @@ class Bank():
     # Error : 잘못된 account 형식 전달
     while not account.isdigit():
       print("잘못된 형식의 계좌번호입니다.")
+      account = input("계좌번호 : ")
+    # Error : 중복된 계좌번호
+    while check_duplication(self.accounts, account):
+      print("이미 있는 계좌번호입니다.")
       account = input("계좌번호 : ")
 
     # Error : 잘못된 name 형식 전달
@@ -36,27 +48,32 @@ class Bank():
             "Balance": int(money)
             }
 
+    self.accounts.append(account)
     self.users.append(user)
-
     print("##계좌개설을 완료하였습니다##")
 
 
   # =================== 입금 method ===================
   def deposit(self):
     print("======입금 하기======")
-
     account = input("입금하실 계좌번호를 입력해주세요 : ")
     # Error : 잘못된 account 형식 전달
     while not account.isdigit():
       print("잘못된 형식의 계좌번호입니다.")
       account = input("계좌번호 : ")
 
-    user = (user for user in self.users if user['Account'] == account)
+    try:
+      user_index = self.accounts.index(account)
+    except ValueError:
+      user_index = None
+    
     # Error : users dict 내 찾는 user가 없는 경우
-    if user == None:
+    if user_index == None:
       print("해당 계좌번호를 가진 사용자가 없습니다.")
       return-1
-    
+
+    user = self.users[user_index]
+
     # 현재 사용자 정보 보여주기
     display_user_info(user, '\n')
 
@@ -84,12 +101,18 @@ class Bank():
       print("잘못된 형식의 계좌번호입니다.")
       account = input("계좌번호 : ")
     
-    user = (user for user in self.users if user['Account'] == account)
+    try:
+      user_index = self.accounts.index(account)
+    except ValueError:
+      user_index = None
+    
     # Error : users dict 내 찾는 user가 없는 경우
-    if user == None:
+    if user_index == None:
       print("해당 계좌번호를 가진 사용자가 없습니다.")
       return-1
-    
+
+    user = self.users[user_index]
+
     # 현재 사용자 정보 보여주기
     display_user_info(user, '\n')
 
@@ -115,7 +138,9 @@ class Bank():
 
   # =================== 조회 method ===================  
   def inquiry(self):
-    for user in self.user:
+    print("======전체 조회======")
+    for user in self.users:
       display_user_info(user, ' / ')
+    print("\n====================")
 
     

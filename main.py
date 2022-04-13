@@ -3,7 +3,7 @@ from bank import Bank
 if __name__ == "__main__":
   while(True):
     print("======Bank Menu=====")
-    print("1. 계좌 계설")
+    print("1. 계좌 개설")
     print("2. 입금 하기")
     print("3. 출금 하기")
     print("4. 전체 조회")

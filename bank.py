@@ -2,13 +2,26 @@ from re import search
 
 def display_user_info(user: dict, sep: str):
   for key in user:
-    print(f'{key} : {user[key]} ', end=sep)
+    print(f'{key} : {user[key]} ', end = sep)
 
-def check_duplication(accounts: list, account: str):
+def check_duplication(accounts: list, account: str) -> bool:
   if account in accounts:
     return True
   else:
     return False
+def find_user_index(accounts: list, account: str) -> int:
+  try:
+    user_index = accounts.index(account)
+  except ValueError:
+    user_index = None
+      
+  # Error : users dict 내 찾는 user가 없는 경우
+  if user_index == None:
+    print("해당 계좌번호를 가진 사용자가 없습니다.")
+    return -1
+  
+  return user_index
+
 
 class Bank():
   users = []
@@ -62,15 +75,9 @@ class Bank():
       print("잘못된 형식의 계좌번호입니다.")
       account = input("계좌번호 : ")
 
-    try:
-      user_index = self.accounts.index(account)
-    except ValueError:
-      user_index = None
-    
-    # Error : users dict 내 찾는 user가 없는 경우
-    if user_index == None:
-      print("해당 계좌번호를 가진 사용자가 없습니다.")
-      return-1
+    user_index = find_user_index(self.accounts, account)
+    if user_index < 0:
+      return
 
     user = self.users[user_index]
 
@@ -101,16 +108,10 @@ class Bank():
       print("잘못된 형식의 계좌번호입니다.")
       account = input("계좌번호 : ")
     
-    try:
-      user_index = self.accounts.index(account)
-    except ValueError:
-      user_index = None
-    
-    # Error : users dict 내 찾는 user가 없는 경우
-    if user_index == None:
-      print("해당 계좌번호를 가진 사용자가 없습니다.")
-      return-1
-
+    user_index = find_user_index(self.accounts, account)
+    if user_index < 0:
+      return
+      
     user = self.users[user_index]
 
     # 현재 사용자 정보 보여주기
@@ -143,4 +144,6 @@ class Bank():
       display_user_info(user, ' / ')
     print("\n====================")
 
+  # ================= 계좌 이체 method =================  
+  # def transfer(self):
     

@@ -31,11 +31,9 @@ def find_user_index(accounts: list, account: str) -> int:
 
 
 class Bank():
-  users = []
-  accounts = []
   def __init__(self):
-    self.users = Bank.users
-    self.accounts = Bank.accounts
+    self.users = []
+    self.accounts = []
 
   # ================= 계좌생성 method =================
   def create_account(self):

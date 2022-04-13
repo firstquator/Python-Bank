@@ -1,6 +1,8 @@
 from bank import Bank
 
 if __name__ == "__main__":
+  bank = Bank()
+
   while(True):
     print("======Bank Menu=====")
     print("1. 계좌 개설")
@@ -10,8 +12,6 @@ if __name__ == "__main__":
     print("5. 계좌 이체")
     print("6. 프로그램 종료")
     print("====================")
-    
-    bank = Bank()
 
     btn = input("입력: ")
     while not btn.isdigit() or (int(btn) < 0 or int(btn) > 6) :

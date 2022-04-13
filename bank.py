@@ -34,7 +34,7 @@ class Bank():
       account = input("계좌번호 : ")
 
     # Error : 잘못된 name 형식 전달
-    while search('/d', name):
+    while search('[0-9]', name):
       print("잘못된 형식의 이름을 전달했습니다 : 이름 내 숫자가 포함되어 있습니다.\n")
       name = input("이름 : ")
 

@@ -2,14 +2,14 @@ from bank import Bank
 
 if __name__ == "__main__":
   while(True):
-    print("======Bank Menu======")
-    print("1. 계좌계설")
-    print("2. 입금하기")
-    print("3. 출금하기")
-    print("4. 전체조회")
-    print("5. 계좌이체")
+    print("======Bank Menu=====")
+    print("1. 계좌 계설")
+    print("2. 입금 하기")
+    print("3. 출금 하기")
+    print("4. 전체 조회")
+    print("5. 계좌 이체")
     print("6. 프로그램 종료")
-    print("=====================")
+    print("====================")
     
     bank = Bank()
 

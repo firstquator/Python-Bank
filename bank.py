@@ -1,14 +1,21 @@
 from re import search
 
 def display_user_info(user: dict, sep: str):
+  count = 0
   for key in user:
-    print(f'{key} : {user[key]} ', end = sep)
+    if(count != 2):
+      print(f'{key} : {user[key]} {sep}', end = '')
+    else:
+      print(f'{key} : {user[key]} 원', end = '')
+    count += 1
+  print('\n', end = '')
 
 def check_duplication(accounts: list, account: str) -> bool:
   if account in accounts:
     return True
   else:
     return False
+
 def find_user_index(accounts: list, account: str) -> int:
   try:
     user_index = accounts.index(account)
@@ -56,9 +63,9 @@ class Bank():
       print("입금하신 금액이 올바르지 않습니다 : 음수 입력\n")
       money = int(input("예금 : "))
 
-    user = {"Account" : account,
-            "Name" : name,
-            "Balance": int(money)
+    user = {"계좌번호" : account,
+            "이름" : name,
+            "잔액": int(money)
             }
 
     self.accounts.append(account)
@@ -90,10 +97,10 @@ class Bank():
       print("입금하신 금액이 올바르지 않습니다.\n")
       money = input("예금 : ")
     
-    user["Balance"] += int(money)
+    user["잔액"] += int(money)
     
     # Display
-    print(f'##계좌잔고: {user["Balance"]} 원##')
+    print(f'##계좌잔고: {user["잔액"]} 원##')
     print("##입금이 완료되었습니다##")
     print("================")
 
@@ -111,7 +118,7 @@ class Bank():
     user_index = find_user_index(self.accounts, account)
     if user_index < 0:
       return
-      
+
     user = self.users[user_index]
 
     # 현재 사용자 정보 보여주기
@@ -125,14 +132,14 @@ class Bank():
 
     
     # Error : 계좌 내 금액보다 더 많은 돈을 출금했을 경우
-    while user["Balance"] - int(money) < 0:
+    while user["잔액"] - int(money) < 0:
       print("계좌 내 금액보다 큰 값의 금액을 입력하셨습니다.")
       money = input("출금하실 잔액을 입력해주세요 : ")
 
-    user["Balance"] -= int(money)
+    user["잔액"] -= int(money)
 
     # Display
-    print(f'##계좌잔고: {user["Balance"]} 원##')
+    print(f'##계좌잔고: {user["잔액"]} 원##')
     print("##출금이 완료되었습니다##")
     print("================")
 
@@ -141,8 +148,8 @@ class Bank():
   def inquiry(self):
     print("======전체 조회======")
     for user in self.users:
-      display_user_info(user, ' / ')
-    print("\n====================")
+      display_user_info(user, '/ ')
+    print("====================")
 
   # ================= 계좌 이체 method =================  
   # def transfer(self):

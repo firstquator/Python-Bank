@@ -1,4 +1,3 @@
-from curses.ascii import isdigit
 from math import floor
 from re import search
 
@@ -58,6 +57,7 @@ class Bank():
       print("해당 계좌번호를 가진 사용자가 없습니다.")
       return-1
     
+    # 현재 사용자 정보 보여주기
     display_user_info(user, '\n')
 
     money = input("입금하실 금액을 입력해주세요 : ")
@@ -90,6 +90,7 @@ class Bank():
       print("해당 계좌번호를 가진 사용자가 없습니다.")
       return-1
     
+    # 현재 사용자 정보 보여주기
     display_user_info(user, '\n')
 
     money = input("출금하실 금액을 입력해주세요 : ")
@@ -110,6 +111,7 @@ class Bank():
     print(f'##계좌잔고: {user["Balance"]} 원##')
     print("##출금이 완료되었습니다##")
     print("================")
+
 
   # =================== 조회 method ===================  
   def inquiry(self):

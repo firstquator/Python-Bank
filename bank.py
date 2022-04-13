@@ -31,7 +31,8 @@ def find_user_index(accounts: list, account: str) -> int:
 
 
 class Bank():
-  def __init__(self):
+  def __init__(self, bank_name):
+    self.bank_name = bank_name
     self.users = []
     self.accounts = []
 

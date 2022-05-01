@@ -209,3 +209,4 @@ class Bank():
 
     for mes in list(reversed(user["사용내역"])):
       print(mes)
+    print("================")

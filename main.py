@@ -1,16 +1,8 @@
 from bank import Bank
 
 if __name__ == "__main__":
-  bank_list = {"농협" : '',
-               "우리은행": '',
-               "KB 국민은행": '',
-               "IBK 기업은행": '',
-               "새마을금고": ''
-              }
 
-  while(True):
-    bank_name = input("은행 생성 : ")
-    bank = Bank(bank_name)
+    bank = Bank()
 
     while(True):
       print("======Bank Menu=====")

@@ -3,7 +3,7 @@ from re import search
 def display_user_info(user: dict, sep: str):
   count = 0
   for key in user:
-    if(count != 2):
+    if(count != 3):
       print(f'{key} : {user[key]} {sep}', end = '')
     else:
       print(f'{key} : {user[key]} 원', end = '')
@@ -31,14 +31,32 @@ def find_user_index(accounts: list, account: str) -> int:
 
 
 class Bank():
-  def __init__(self, bank_name):
-    self.bank_name = bank_name
+  bank_list = ['카카오뱅크', 'NH농협', 'KB국민', '우리은행', '신한은행', '하나은행', '부산은행', '새마을금고', 'SC제일']
+
+  def __init__(self):
     self.users = []
     self.accounts = []
 
   # ================= 계좌생성 method =================
   def create_account(self):
     print("======계좌개설======")
+    index = 1
+    for bank_name in Bank.bank_list:
+      print(f"{index} : {bank_name}", end = " ")
+      index += 1
+    print("\n")
+
+    bank_index = input("개설하실 은행이름 번호를 입력하세요 : ")
+    # Error : 잘못된 bank_index 형식 전달
+    while not bank_index.isdigit():
+      print("올바른 은행번호를 입력해주세요. - 숫자 입력")
+      bank_index = input("개설하실 은행이름 번호를 입력하세요 : ")
+    # Error : 범위를 벗어난 bank_index 형식 전달
+    while int(bank_index) < 0 or int(bank_index) > len(Bank.bank_list):
+      print("올바른 은행번호를 입력해주세요. - 범위 내 번호 입력")
+      bank_index = input("개설하실 은행이름 번호를 입력하세요 : ")
+    
+    bank_name = Bank.bank_list[int(bank_index) - 1]
     account = input("계좌번호 : ")
     name = input("이름 : ")
     money = input("예금 : ")
@@ -47,6 +65,7 @@ class Bank():
     while not account.isdigit():
       print("잘못된 형식의 계좌번호입니다.")
       account = input("계좌번호 : ")
+
     # Error : 중복된 계좌번호
     while check_duplication(self.accounts, account):
       print("이미 있는 계좌번호입니다.")
@@ -62,10 +81,12 @@ class Bank():
       print("입금하신 금액이 올바르지 않습니다 : 음수 입력\n")
       money = int(input("예금 : "))
 
-    user = {"계좌번호" : account,
-            "이름" : name,
-            "잔액": int(money)
-            }
+    user = {
+      "은행명" : bank_name,
+      "계좌번호" : account,
+      "이름" : name,
+      "잔액": int(money)
+    }
 
     self.accounts.append(account)
     self.users.append(user)

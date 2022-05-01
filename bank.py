@@ -1,4 +1,5 @@
 from re import search
+from datetime import datetime
 
 def display_user_info(user: dict, sep: str):
   count = 0
@@ -8,6 +9,9 @@ def display_user_info(user: dict, sep: str):
     else:
       print(f'{key} : {user[key]} 원', end = '')
     count += 1
+
+    if(count == 4): 
+      break
   print('\n', end = '')
 
 def check_duplication(accounts: list, account: str) -> bool:
@@ -29,6 +33,8 @@ def find_user_index(accounts: list, account: str) -> int:
   
   return user_index
 
+def create_history(message: str) -> str:
+  return datetime.today().strftime("%Y/%m/%d %H:%M:%S \t") + message
 
 class Bank():
   bank_list = ['카카오뱅크', 'NH농협', 'KB국민', '우리은행', '신한은행', '하나은행', '부산은행', '새마을금고', 'SC제일']
@@ -81,12 +87,18 @@ class Bank():
       print("입금하신 금액이 올바르지 않습니다 : 음수 입력\n")
       money = int(input("예금 : "))
 
+    # 사용 내역 저장 리스트 생성
+    history = []
     user = {
       "은행명" : bank_name,
       "계좌번호" : account,
       "이름" : name,
-      "잔액": int(money)
+      "잔액": int(money),
+      "사용내역" : history 
     }
+
+    mes = create_history(f'+{money}원 입금\t 잔액 : {user["잔액"]}원')
+    user["사용내역"].append(mes)
 
     self.accounts.append(account)
     self.users.append(user)
@@ -118,7 +130,10 @@ class Bank():
       money = input("예금 : ")
     
     user["잔액"] += int(money)
-    
+
+    mes = create_history(f'+{money}원 입금\t 잔액 : {user["잔액"]}원')
+    user["사용내역"].append(mes)
+
     # Display
     print(f'##계좌잔고: {user["잔액"]} 원##')
     print("##입금이 완료되었습니다##")
@@ -157,6 +172,8 @@ class Bank():
       money = input("출금하실 잔액을 입력해주세요 : ")
 
     user["잔액"] -= int(money)
+    mes = create_history(f'-{money}원 출금\t 잔액 : {user["잔액"]}원')
+    user["사용내역"].append(mes)
 
     # Display
     print(f'##계좌잔고: {user["잔액"]} 원##')
@@ -171,6 +188,24 @@ class Bank():
       display_user_info(user, '/ ')
     print("====================")
 
-  # ================= 계좌 이체 method =================  
-  # def transfer(self):
+  # =============== 사용내역 조회 method ===============  
+  def view_history(self):
+    print("====사용내역 조회====")
+    account = input("조회하실 계좌번호를 입력해주세요 : ")
+
+    # Error : 잘못된 account 형식 전달
+    while not account.isdigit():
+      print("잘못된 형식의 계좌번호입니다.")
+      account = input("계좌번호 : ")
     
+    user_index = find_user_index(self.accounts, account)
+    if user_index < 0:
+      return
+
+    user = self.users[user_index]
+
+    # 현재 사용자 정보 보여주기
+    display_user_info(user, '\n')
+
+    for mes in list(reversed(user["사용내역"])):
+      print(mes)

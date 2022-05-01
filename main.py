@@ -10,7 +10,7 @@ if __name__ == "__main__":
       print("2. 입금 하기")
       print("3. 출금 하기")
       print("4. 전체 조회")
-      print("5. 계좌 이체")
+      print("5. 사용 내역 조회")
       print("6. 프로그램 종료")
       print("====================")
 
@@ -29,3 +29,5 @@ if __name__ == "__main__":
         bank.withdraw()
       elif(btn == '4'):
         bank.inquiry()
+      elif(btn == '5'):
+        bank.view_history()

@@ -66,6 +66,7 @@ class Bank():
             "잔액": int(money)
             }
 
+
     self.accounts.append(account)
     self.users.append(user)
     print("##계좌개설을 완료하였습니다##")

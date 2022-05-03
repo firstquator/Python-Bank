@@ -28,3 +28,5 @@ if __name__ == "__main__":
       bank.withdraw()
     elif(btn == '4'):
       bank.inquiry()
+    elif(btn == '5'):
+      bank.Delete()

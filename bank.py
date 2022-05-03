@@ -21,12 +21,12 @@ def find_user_index(accounts: list, account: str) -> int:
     user_index = accounts.index(account)
   except ValueError:
     user_index = None
-      
+  
   # Error : users dict 내 찾는 user가 없는 경우
   if user_index == None:
     print("해당 계좌번호를 가진 사용자가 없습니다.")
     return -1
-  
+
   return user_index
 
 
@@ -149,6 +149,27 @@ class Bank():
       display_user_info(user, '/ ')
     print("====================")
 
-  # ================= 계좌 이체 method =================  
-  # def transfer(self):
+  # ================= 계좌 삭제 method =================  
+  def Delete(self):
+    print("======계좌삭제======")
+    account = input("계좌번호 : ")
+
+    # Error : 잘못된 account 형식 전달
+    while not account.isdigit():
+      print("잘못된 형식의 계좌번호입니다.")
+      account = input("계좌번호 : ")
+
+    user_index = find_user_index(self.accounts, account)
+    if user_index < 0:
+      return
+    
+    user = self.users[user_index]
+
+    self.accounts.remove(account)
+    self.users.remove(user)
+    print("============계좌 삭제 완료 ============")
+
+
+
+
     

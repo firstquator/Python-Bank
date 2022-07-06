@@ -36,6 +36,9 @@ def find_user_index(accounts: list, account: str) -> int:
 def create_history(message: str) -> str:
   return datetime.today().strftime("%Y/%m/%d %H:%M:%S \t") + message
 
+
+
+
 class Bank():
   bank_list = ['카카오뱅크', 'NH농협', 'KB국민', '우리은행', '신한은행', '하나은행', '부산은행', '새마을금고', 'SC제일']
 

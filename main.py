@@ -31,3 +31,6 @@ if __name__ == "__main__":
         bank.inquiry()
       elif(btn == '5'):
         bank.view_history()
+
+
+      
